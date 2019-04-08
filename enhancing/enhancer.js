@@ -29,14 +29,11 @@ function fail(item) {
 
   if (enhancement < 15) {
     newItem.durability -= 5;
-  }
-
-  if (enhancement >= 15) {
+  } else if (enhancement >= 15) {
     newItem.durability -= 10;
-  }
-
-  if (enhancement >= 17) {
-    newItem.enhancement -= 1;
+    if (enhancement >= 17) {
+      newItem.enhancement -= 1;
+    }
   }
 
   return newItem;
