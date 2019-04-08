@@ -78,4 +78,26 @@ describe('enhancer', () => {
       expect(fail({ ...baseItem, enhancement: 18 }).enhancement).toEqual(17);
     });
   });
+
+  describe('get', () => {
+    it('should throw on improper input', () => {
+      [{}, true, 1, 'string', []].forEach(item => {
+        expect(() => get(item)).toThrow();
+      });
+    });
+
+    const baseItem = {
+      name: 'Base Item',
+      enhancement: 10,
+      durability: 90
+    };
+
+    it('should not modify name if enhancement is 0', () => {
+      expect(get({ ...baseItem, enhancement: 0 }).name).toEqual(baseItem.name);
+    });
+
+    it('should prepend enhancement level to name if enhancement > 0', () => {
+      expect(get(baseItem).name).toEqual('[+10] ' + baseItem.name);
+    });
+  });
 });

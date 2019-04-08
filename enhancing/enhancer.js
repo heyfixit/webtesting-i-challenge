@@ -43,7 +43,7 @@ function fail(item) {
 }
 
 function repair(item) {
-  if (item.durability) {
+  if (item.durability !== undefined) {
     return { ...item, durability: 100 };
   } else {
     throw 'Unexpected Item Format';
@@ -51,5 +51,16 @@ function repair(item) {
 }
 
 function get(item) {
-  return { ...item };
+  const { name, enhancement } = item;
+  if (name === undefined || enhancement === undefined) {
+    throw 'Get expects item.name and item.enhancement to be defined';
+  }
+
+  if (enhancement === 0) {
+    return { ...item };
+  }
+
+  if (enhancement > 0) {
+    return { ...item, name: `[+${enhancement}] ${name}` };
+  }
 }
