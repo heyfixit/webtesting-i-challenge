@@ -1,0 +1,14 @@
+{
+  "name": "webtesting-i-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:heyjuststart/webtesting-i-challenge.git",
+  "author": "heyjuststart <41658450+heyjuststart@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^24.7.1"
+  },
+  "scripts": {
+    "test": "jest --watch"
+  }
+}
