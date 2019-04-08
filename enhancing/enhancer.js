@@ -2,11 +2,21 @@ module.exports = {
   succeed,
   fail,
   repair,
-  get,
+  get
 };
 
 function succeed(item) {
-  return { ...item };
+  const { enhancement } = item;
+
+  if (enhancement >= 0 && enhancement <= 20) {
+    if (enhancement < 20) {
+      return { ...item, enhancement: enhancement + 1 };
+    } else {
+      return { ...item };
+    }
+  } else {
+    throw 'Enhancement value out of range. Must be between 0 and 20 inclusive'
+  }
 }
 
 function fail(item) {
@@ -14,7 +24,11 @@ function fail(item) {
 }
 
 function repair(item) {
-  return { ...item };
+  if (item.durability) {
+    return { ...item, durability: 100 };
+  } else {
+    throw 'Unexpected Item Format';
+  }
 }
 
 function get(item) {
