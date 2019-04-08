@@ -1,4 +1,4 @@
-const { repair, succeed } = require('./enhancer.js');
+const { repair, succeed, fail, get } = require('./enhancer.js');
 // test away!
 
 describe('enhancer', () => {
@@ -48,6 +48,34 @@ describe('enhancer', () => {
     const maxEnhancementItem = { ...enhanceableItem, enhancement: 20 };
     it('should not add 1 to enhancement for maxed enhancment items', () => {
       expect(succeed(maxEnhancementItem).enhancement).toEqual(20);
+    });
+  });
+
+  describe('fail', () => {
+    const baseItem = {
+      durability: 100,
+      enhancement: 5,
+      name: 'Base Item'
+    };
+
+    it('should throw on improper input', () => {
+      [{}, true, 1, 'string', []].forEach(item => {
+        expect(() => fail(item)).toThrow();
+      });
+    });
+
+    it('should decrease durability by 5 if enhancement is less than 15', () => {
+      expect(fail(baseItem).durability).toEqual(95);
+    });
+
+    it('should decrease durability by 10 if enhancement is >= 15', () => {
+      expect(fail({ ...baseItem, enhancement: 15 }).durability).toEqual(90);
+      expect(fail({ ...baseItem, enhancement: 20 }).durability).toEqual(90);
+    });
+
+    it('should decrease enhancement by 1 if enhancement >=17', () => {
+      expect(fail({ ...baseItem, enhancement: 17 }).enhancement).toEqual(16);
+      expect(fail({ ...baseItem, enhancement: 18 }).enhancement).toEqual(17);
     });
   });
 });
